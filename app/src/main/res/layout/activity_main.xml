@@ -11,24 +11,25 @@
 
     <EditText
         android:id="@+id/cityEditText"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="Entre le nom d'une ville"
-        android:layout_gravity="center_horizontal"/>
+        android:layout_gravity="center_horizontal"
+        android:hint="Entre le nom d'une ville" />
+
     <Button
         android:id='@+id/fetchData'
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Fetch data"
-        android:layout_gravity="center_horizontal"/>
+        android:layout_gravity="center_horizontal"
+        android:text="Fetch data" />
 
     <TextView
         android:id="@+id/fetchedDataTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
         android:text="Waiting for fetching the data"
-        android:textSize="24sp"
-        android:layout_gravity="center_horizontal"/>
+        android:textSize="24sp" />
 
 
 </LinearLayout>
