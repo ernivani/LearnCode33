@@ -9,23 +9,26 @@
     android:padding="16dp"
     tools:context=".MainActivity">
 
-    <TextView
-        android:id="@+id/counterTextView"
+    <EditText
+        android:id="@+id/cityEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Entre le nom d'une ville"
+        android:layout_gravity="center_horizontal"/>
+    <Button
+        android:id='@+id/fetchData'
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="0"
+        android:text="Fetch data"
+        android:layout_gravity="center_horizontal"/>
+
+    <TextView
+        android:id="@+id/fetchedDataTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Waiting for fetching the data"
         android:textSize="24sp"
         android:layout_gravity="center_horizontal"/>
 
-    <Button
-        android:id="@+id/incrementButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Increment"/>
 
-    <Button
-        android:id="@+id/decrementButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Decrement"/>
 </LinearLayout>
