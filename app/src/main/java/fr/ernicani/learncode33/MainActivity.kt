@@ -1,138 +1,129 @@
 package fr.ernicani.learncode33
 
-import android.Manifest
 import android.annotation.SuppressLint
-import android.content.pm.PackageManager
-import android.location.Location
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationServices
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.Callback
 import okhttp3.Response
+import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.RequestBody.Companion.toRequestBody
+import org.json.JSONObject
 import java.io.IOException
-import android.content.Context
-import android.content.Intent
-import android.location.LocationManager
-import android.provider.Settings
-import com.google.android.gms.location.LocationRequest
-import com.google.android.gms.location.SettingsClient
-import com.google.android.gms.location.LocationSettingsRequest
-import com.google.android.gms.location.LocationSettingsResponse
-import com.google.android.gms.common.api.ResolvableApiException
-import com.google.android.gms.tasks.Task
+import android.content.SharedPreferences
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var fetchDataButton: Button
-    private lateinit var fetchedDataTextView: TextView
-    private lateinit var cityEditText: EditText
-    private lateinit var settingsClient: SettingsClient
-    private lateinit var locationSettingsRequest: LocationSettingsRequest
 
-    private lateinit var fusedLocationClient: FusedLocationProviderClient
+    private lateinit var loginButton: Button
+    private lateinit var registerButton: Button
+    private lateinit var usernameEditText: EditText
+    private lateinit var passwordEditText: EditText
+    private lateinit var statusTextView: TextView
+    private val client = OkHttpClient()
+    private lateinit var sharedPreferences: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        fetchDataButton = findViewById(R.id.fetchData)
-        fetchedDataTextView = findViewById(R.id.fetchedDataTextView)
-        cityEditText = findViewById(R.id.cityEditText)
+        sharedPreferences = getSharedPreferences("user_session", MODE_PRIVATE)
 
-        settingsClient = LocationServices.getSettingsClient(this)
-        val locationRequest = LocationRequest.create()
-        locationRequest.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
+        val logoutButton: Button = findViewById(R.id.logoutButton)
+        logoutButton.setOnClickListener { logout() }
 
-        locationSettingsRequest = LocationSettingsRequest.Builder()
-            .addLocationRequest(locationRequest)
-            .build()
+        loginButton = findViewById(R.id.loginButton)
+        registerButton = findViewById(R.id.registerButton)
+        usernameEditText = findViewById(R.id.usernameEditText)
+        passwordEditText = findViewById(R.id.passwordEditText)
+        statusTextView = findViewById(R.id.statusTextView)
 
+        loginButton.setOnClickListener { performAction("https://api.impin.fr/login") }
+        registerButton.setOnClickListener { performAction("https://api.impin.fr/register") }
 
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
-
-        fetchDataButton.setOnClickListener { fetchData() }
+        val isLogged = sharedPreferences.getBoolean("isLogged", false)
+        if (isLogged) {
+            navigateToLoggedActivity()
+        }
     }
 
-    private fun isLocationEnabled(): Boolean {
-        val locationManager: LocationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
-        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(
-            LocationManager.NETWORK_PROVIDER
-        )
+    private fun navigateToLoggedActivity() {
+        val intent = Intent(this@MainActivity, LoggedActivity::class.java)
+        startActivity(intent)
+    }
+    @SuppressLint("SetTextI18n")
+    private fun performAction(url: String) {
+        val username = usernameEditText.text.toString().trim()
+        val password = passwordEditText.text.toString().trim()
+
+        if (username.isNotBlank() && password.isNotBlank()) {
+            sendRequest(url, username, password)
+        } else {
+            statusTextView.text = "Please provide both username and password"
+        }
     }
 
-    private fun fetchData() {
-        val city = cityEditText.text.toString().trim()
-
-        if (city.isNullOrEmpty()) {
-            // Fetch current location if city is not specified
-            if (!isLocationEnabled()) {
-                fetchedDataTextView.text = "Veuillez activer la localisation"
-                startActivity(Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS))
-
-                return
-            }
-            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-                fusedLocationClient.lastLocation.addOnSuccessListener { location: Location? ->
-                    if (location != null) {
-                        fetchWeatherDataByCoordinates(location.latitude, location.longitude)
-                    } else {
-                        fetchedDataTextView.text = "localisation indisponible"
-                    }
-                }
-            } else {
-                ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), 1)
-            }
-            return
+    private fun sendRequest(url: String, username: String, password: String) {
+        val payload = JSONObject().apply {
+            put("username", username)
+            put("password", password)
         }
 
-        fetchedDataTextView.text = "Chargement..."
+        val requestBody = payload.toString()
+            .toRequestBody("application/json; charset=utf-8".toMediaType())
 
-        fetchWeatherDataByCity(city)
-    }
-
-    private fun fetchWeatherDataByCity(city: String) {
-        val client = OkHttpClient()
         val request = Request.Builder()
-            .url("https://api.openweathermap.org/data/2.5/weather?q=$city&appid=66bb8eed95ce71a17230f561a7be99a5&units=metric")
+            .url(url)
+            .post(requestBody)
             .build()
 
-        client.newCall(request).enqueue(getCallbackForWeatherResponse())
+        client.newCall(request).enqueue(getCallbackForApiResponse())
     }
 
-    private fun fetchWeatherDataByCoordinates(lat: Double, lon: Double) {
-        val client = OkHttpClient()
-        val request = Request.Builder()
-            .url("https://api.openweathermap.org/data/2.5/weather?lat=$lat&lon=$lon&appid=66bb8eed95ce71a17230f561a7be99a5&units=metric")
-            .build()
-
-        client.newCall(request).enqueue(getCallbackForWeatherResponse())
-    }
-
-    @SuppressLint("SetTextI18n")
-    private fun getCallbackForWeatherResponse(): Callback {
+    private fun getCallbackForApiResponse(): Callback {
         return object : Callback {
             override fun onFailure(call: okhttp3.Call, e: IOException) {
                 this@MainActivity.runOnUiThread {
-                    fetchedDataTextView.text = "Une erreur est survenue"
+                    statusTextView.text = "Une erreur est survenue"
                 }
             }
 
             override fun onResponse(call: okhttp3.Call, response: Response) {
                 if (response.isSuccessful) {
-                    val myResponse = response.body?.string()
                     this@MainActivity.runOnUiThread {
-                        val temperature = myResponse?.split("\"temp\":")?.get(1)?.split(",")?.get(0)
-                        val weather = myResponse?.split("\"main\":\"")?.get(1)?.split("\"")?.get(0)
-                        fetchedDataTextView.text = "Il fait $temperature°C et le temps est $weather"
+                        statusTextView.text = "Opération réussie"
+
+                        with(sharedPreferences.edit()) {
+                            putBoolean("isLogged", true)
+                            apply()
+                        }
+
+                        navigateToLoggedActivity()
+
+                    }
+                } else {
+                    this@MainActivity.runOnUiThread {
+                        statusTextView.text = "Échec de l'opération"
                     }
                 }
             }
         }
+    }
+
+
+    private fun logout() {
+        with(sharedPreferences.edit()) {
+            putBoolean("isLogged", false)
+            apply()
+        }
+
+        val intent = Intent(this@MainActivity, MainActivity::class.java)
+        startActivity(intent)
+
+
     }
 }
