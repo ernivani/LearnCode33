@@ -32,10 +32,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         sharedPreferences = getSharedPreferences("user_session", MODE_PRIVATE)
-
-        val logoutButton: Button = findViewById(R.id.logoutButton)
-        logoutButton.setOnClickListener { logout() }
-
         loginButton = findViewById(R.id.loginButton)
         registerButton = findViewById(R.id.registerButton)
         usernameEditText = findViewById(R.id.usernameEditText)
@@ -115,15 +111,4 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    private fun logout() {
-        with(sharedPreferences.edit()) {
-            putBoolean("isLogged", false)
-            apply()
-        }
-
-        val intent = Intent(this@MainActivity, MainActivity::class.java)
-        startActivity(intent)
-
-
-    }
 }
