@@ -8,6 +8,7 @@ import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.button.MaterialButton
+import com.google.android.material.snackbar.Snackbar
 import okhttp3.*
 import org.json.JSONObject
 import java.io.IOException
@@ -19,20 +20,28 @@ class MainActivity : AppCompatActivity() {
     private lateinit var loginRedirect: MaterialButton
     private lateinit var registerRedirect: MaterialButton
     private lateinit var sharedPreferences: SharedPreferences
-    private val client = OkHttpClient()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+
+        // Check for the logged_out flag and show Snackbar if needed
+        if (intent.getBooleanExtra("logged_out", false)) {
+            Snackbar.make(
+                findViewById(android.R.id.content),
+                "You have been logged out",
+                Snackbar.LENGTH_SHORT
+            ).show()
+        }
+
         sharedPreferences = getSharedPreferences("user_session", MODE_PRIVATE)
 
-        val isLogged = sharedPreferences.getBoolean("isLogged", false)
+        // Récupérez le token et le statut de connexion
         val token = sharedPreferences.getString("token", null)
-
         if (token != null) {
-            checkSession(token)
+            navigateToLoggedActivity()
         }
 
         loginRedirect = findViewById(R.id.LoginRedirect)
@@ -56,42 +65,6 @@ class MainActivity : AppCompatActivity() {
         finish()
     }
 
-    private fun checkSession(token: String) {
-        val url = "https://api.impin.fr/check-session"
-
-        val payload = JSONObject().apply {
-            put("token", token)
-        }
-
-        val requestBody = payload.toString().toRequestBody("application/json".toMediaType())
-
-        val request = Request.Builder()
-            .url(url)
-            .post(requestBody)
-            .build()
-
-        client.newCall(request).enqueue(getCallbackForApiResponse())
-
-
-    }
-
-    private fun getCallbackForApiResponse(): Callback {
-        return object : Callback {
-            override fun onFailure(call: Call, e: IOException) {
-                println("Error: $e")
-            }
-
-            override fun onResponse(call: Call, response: Response) {
-                val body = response.body?.string()
-                val json = JSONObject(body)
-                val isLogged = json.getBoolean("isLogged")
-
-                if (isLogged) {
-                    navigateToLoggedActivity()
-                }
-            }
-        }
-    }
 
 
 

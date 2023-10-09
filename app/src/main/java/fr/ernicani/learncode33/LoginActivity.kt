@@ -7,6 +7,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.snackbar.Snackbar
 import okhttp3.*
 import org.json.JSONObject
 import java.io.IOException
@@ -33,13 +34,14 @@ class LoginActivity : AppCompatActivity() {
 
         loginButton.setOnClickListener { performAction("https://api.impin.fr/login") }
 
-        val isLogged = sharedPreferences.getBoolean("isLogged", false)
-        if (isLogged) navigateToLoggedActivity()
+        val token = sharedPreferences.getString("token", null)
+        if (token != null) navigateToLoggedActivity()
     }
 
     private fun navigateToLoggedActivity() {
         val intent = Intent(this, LoggedActivity::class.java)
         startActivity(intent)
+        finish()
     }
 
     private fun performAction(url: String) {
@@ -49,7 +51,11 @@ class LoginActivity : AppCompatActivity() {
         if (email.isNotBlank() && password.isNotBlank()) {
             sendRequest(url, email, password)
         } else {
-            // todo: handle error
+            Snackbar.make(
+                findViewById(android.R.id.content),
+                "Email or Password cannot be empty",
+                Snackbar.LENGTH_SHORT
+            ).show()
         }
     }
 
@@ -70,7 +76,11 @@ class LoginActivity : AppCompatActivity() {
         return object : Callback {
             override fun onFailure(call: Call, e: IOException) {
                 runOnUiThread {
-                    // todo: handle error
+                    Snackbar.make(
+                        findViewById(android.R.id.content),
+                        "Network error, please try again",
+                        Snackbar.LENGTH_SHORT
+                    ).show()
                 }
             }
 
@@ -79,12 +89,18 @@ class LoginActivity : AppCompatActivity() {
                     if (response.isSuccessful) {
                         with(sharedPreferences.edit()) {
                             putBoolean("isLogged", true)
-                            // putString("token", response.header("Authorization"))
+                            val responseBody = response.body?.string()
+                            val token = responseBody?.let { JSONObject(it).getString("token") }
+                            putString("token", token)
                             apply()
                         }
                         navigateToLoggedActivity()
                     } else {
-                        // todo: handle error
+                        Snackbar.make(
+                            findViewById(android.R.id.content),
+                            "Login failed, please check your credentials",
+                            Snackbar.LENGTH_SHORT
+                        ).show()
                     }
                 }
             }

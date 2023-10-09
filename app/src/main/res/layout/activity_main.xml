@@ -68,7 +68,7 @@
                android:layout_width="match_parent"
                android:layout_height="60dp"
                android:backgroundTint="@color/my_primary"
-               android:text="I already have an account"
+               android:text="I don't have an account"
                android:textColor="@color/white"
                app:cornerRadius="32dp" />
 

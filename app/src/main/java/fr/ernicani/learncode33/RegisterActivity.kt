@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.button.MaterialButton
+import com.google.android.material.snackbar.Snackbar
 import okhttp3.*
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.RequestBody.Companion.toRequestBody
@@ -36,8 +37,8 @@ class RegisterActivity: AppCompatActivity() {
 
         registerButton.setOnClickListener { performAction("https://api.impin.fr/register") }
 
-        val isLogged = sharedPreferences.getBoolean("isLogged", false)
-        if (isLogged) navigateToLoggedActivity()
+        val token = sharedPreferences.getString("token", null)
+        if (token != null) navigateToLoggedActivity()
     }
 
     private fun navigateToLoggedActivity() {
@@ -53,7 +54,11 @@ class RegisterActivity: AppCompatActivity() {
         if (email.isNotBlank() && password.isNotBlank()) {
             sendRequest(url, email, password, username)
         } else {
-            // todo: handle error
+            Snackbar.make(
+                findViewById(android.R.id.content),
+                "Email, Username or Password cannot be empty",
+                Snackbar.LENGTH_SHORT
+            ).show()
         }
     }
 
@@ -75,7 +80,11 @@ class RegisterActivity: AppCompatActivity() {
         return object : Callback {
             override fun onFailure(call: Call, e: IOException) {
                 runOnUiThread {
-                    // todo: handle error
+                    Snackbar.make(
+                        findViewById(android.R.id.content),
+                        "Network error, please try again",
+                        Snackbar.LENGTH_SHORT
+                    ).show()
                 }
             }
 
@@ -84,12 +93,18 @@ class RegisterActivity: AppCompatActivity() {
                     if (response.isSuccessful) {
                         with(sharedPreferences.edit()) {
                             putBoolean("isLogged", true)
-                            // putString("token", response.header("Authorization"))
+                            val responseBody = response.body?.string()
+                            val token = responseBody?.let { JSONObject(it).getString("token") }
+                            putString("token", token)
                             apply()
                         }
                         navigateToLoggedActivity()
                     } else {
-                        // todo: handle error
+                        Snackbar.make(
+                            findViewById(android.R.id.content),
+                            "Register failed, please check your credentials",
+                            Snackbar.LENGTH_SHORT
+                        ).show()
                     }
                 }
             }
