@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var loginButton: Button
     private lateinit var registerButton: Button
-    private lateinit var usernameEditText: EditText
+    private lateinit var emailEditText: EditText
     private lateinit var passwordEditText: EditText
     private lateinit var statusTextView: TextView
     private val client = OkHttpClient()
@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity() {
         sharedPreferences = getSharedPreferences("user_session", MODE_PRIVATE)
         loginButton = findViewById(R.id.loginButton)
         registerButton = findViewById(R.id.registerButton)
-        usernameEditText = findViewById(R.id.usernameEditText)
+        emailEditText = findViewById(R.id.emailEditText)
         passwordEditText = findViewById(R.id.passwordEditText)
         statusTextView = findViewById(R.id.statusTextView)
 
@@ -53,7 +53,7 @@ class MainActivity : AppCompatActivity() {
     }
     @SuppressLint("SetTextI18n")
     private fun performAction(url: String) {
-        val username = usernameEditText.text.toString().trim()
+        val username = emailEditText.text.toString().trim()
         val password = passwordEditText.text.toString().trim()
 
         if (username.isNotBlank() && password.isNotBlank()) {
