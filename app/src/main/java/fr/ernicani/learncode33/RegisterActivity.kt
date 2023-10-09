@@ -84,6 +84,7 @@ class RegisterActivity: AppCompatActivity() {
                     if (response.isSuccessful) {
                         with(sharedPreferences.edit()) {
                             putBoolean("isLogged", true)
+                            // putString("token", response.header("Authorization"))
                             apply()
                         }
                         navigateToLoggedActivity()

@@ -29,8 +29,11 @@ class MainActivity : AppCompatActivity() {
         sharedPreferences = getSharedPreferences("user_session", MODE_PRIVATE)
 
         val isLogged = sharedPreferences.getBoolean("isLogged", false)
+        val token = sharedPreferences.getString("token", null)
 
-        if (isLogged) navigateToLoggedActivity()
+        if (token != null) {
+            checkSession(token)
+        }
 
         loginRedirect = findViewById(R.id.LoginRedirect)
         registerRedirect = findViewById(R.id.RegisterRedirect)
@@ -52,6 +55,44 @@ class MainActivity : AppCompatActivity() {
         startActivity(intent)
         finish()
     }
+
+    private fun checkSession(token: String) {
+        val url = "https://api.impin.fr/check-session"
+
+        val payload = JSONObject().apply {
+            put("token", token)
+        }
+
+        val requestBody = payload.toString().toRequestBody("application/json".toMediaType())
+
+        val request = Request.Builder()
+            .url(url)
+            .post(requestBody)
+            .build()
+
+        client.newCall(request).enqueue(getCallbackForApiResponse())
+
+
+    }
+
+    private fun getCallbackForApiResponse(): Callback {
+        return object : Callback {
+            override fun onFailure(call: Call, e: IOException) {
+                println("Error: $e")
+            }
+
+            override fun onResponse(call: Call, response: Response) {
+                val body = response.body?.string()
+                val json = JSONObject(body)
+                val isLogged = json.getBoolean("isLogged")
+
+                if (isLogged) {
+                    navigateToLoggedActivity()
+                }
+            }
+        }
+    }
+
 
 
 
