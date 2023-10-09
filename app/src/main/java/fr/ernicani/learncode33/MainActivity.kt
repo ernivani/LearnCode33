@@ -16,28 +16,43 @@ import okhttp3.RequestBody.Companion.toRequestBody
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var LoginRedirect: MaterialButton
-    private lateinit var RegisterRedirect: MaterialButton
+    private lateinit var loginRedirect: MaterialButton
+    private lateinit var registerRedirect: MaterialButton
+    private lateinit var sharedPreferences: SharedPreferences
+    private val client = OkHttpClient()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        LoginRedirect = findViewById(R.id.LoginRedirect)
-        RegisterRedirect = findViewById(R.id.RegisterRedirect)
+        sharedPreferences = getSharedPreferences("user_session", MODE_PRIVATE)
 
-        LoginRedirect.setOnClickListener {
+        val isLogged = sharedPreferences.getBoolean("isLogged", false)
+
+        if (isLogged) navigateToLoggedActivity()
+
+        loginRedirect = findViewById(R.id.LoginRedirect)
+        registerRedirect = findViewById(R.id.RegisterRedirect)
+
+        loginRedirect.setOnClickListener {
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
         }
 
-        RegisterRedirect.setOnClickListener {
+        registerRedirect.setOnClickListener {
             val intent = Intent(this, RegisterActivity::class.java)
             startActivity(intent)
         }
 
-
     }
+
+    private fun navigateToLoggedActivity() {
+        val intent = Intent(this, LoggedActivity::class.java)
+        startActivity(intent)
+        finish()
+    }
+
+
 
 }
