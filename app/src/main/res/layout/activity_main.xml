@@ -4,8 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@drawable/bg"
     tools:context=".MainActivity"
+    android:background="@drawable/bg"
     tools:ignore="ExtraText">
     
     
@@ -18,20 +18,16 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical"
         android:gravity="center"
+        android:layout_above="@+id/card_view"
         android:padding="28dp">
-            
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/location_icon"
-            />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="GO MAP"
+            android:text="IMPIN"
             android:textStyle="bold"
             android:textSize="32sp"
             android:textColor="@color/white"
@@ -45,6 +41,7 @@
        android:layout_alignParentBottom="true"
        app:cardCornerRadius="28dp"
        android:layout_marginBottom="-20dp"
+       android:id="@+id/card_view"
        >
 
        <LinearLayout
@@ -53,125 +50,31 @@
            android:orientation="vertical"
            android:padding="28dp">
 
-           <TextView
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:text="Welcome"
-               android:textColor="@color/my_primary"
-               android:textSize="32sp"
-               android:textStyle="bold"/>
-           <TextView
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:text="Please login with your information"
-               android:alpha="0.7"
-               />
-           
-           <View
-               android:layout_width="wrap_content"
-               android:layout_height="30dp"/>
-
-           <TextView
-               android:layout_width='wrap_content'
-               android:layout_height="wrap_content"
-               android:text="Email Adress"
-               android:alpha='0.7'
-               android:textStyle="bold"/>
-
-           <EditText
-               android:id="@+id/emailEditText"
+           <com.google.android.material.button.MaterialButton
+               android:id="@+id/LoginRedirect"
                android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               android:inputType="textEmailAddress"
-               android:drawableEnd="@drawable/done_icon"/>
-
-           <View
-               android:layout_width='wrap_content'
-               android:layout_height="20dp"/>
-
-           <TextView
-               android:layout_width='wrap_content'
-               android:layout_height="wrap_content"
-               android:text="Password"
-               android:alpha='0.7'
-               android:textStyle="bold"/>
-
-
-           <EditText
-               android:id="@+id/passwordEditText"
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               android:inputType="textEmailAddress"
-               android:drawableEnd="@drawable/password_icon" />
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                >
-
-                <CheckBox
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Remember me"
-                    android:layout_centerVertical="true"
-                    android:alpha="0.7"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="i forgot my password"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"/>
-            </RelativeLayout>
+               android:layout_height="60dp"
+               android:backgroundTint="@color/my_primary"
+               android:textColor="@color/white"
+               android:text="Let's Go !"
+               app:cornerRadius="32dp" />
 
            <View
                android:layout_width="wrap_content"
                android:layout_height="10dp"/>
 
            <com.google.android.material.button.MaterialButton
+               android:id="@+id/RegisterRedirect"
                android:layout_width="match_parent"
                android:layout_height="60dp"
-               android:text="Login"
-               app:cornerRadius="32dp"/>
-
+               android:backgroundTint="@color/my_primary"
+               android:text="I already have an account"
+               android:textColor="@color/white"
+               app:cornerRadius="32dp" />
 
        </LinearLayout>
 
    </androidx.cardview.widget.CardView>
-
-    <!--
-        <EditText
-            android:id="@+id/usernameEditText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Username" />
-
-        <EditText
-            android:id="@+id/passwordEditText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Password"
-            android:inputType="textPassword"/>
-
-        <Button
-            android:id="@+id/loginButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Login" />
-
-        <Button
-            android:id="@+id/registerButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Register" />
-
-        <TextView
-            android:id="@+id/statusTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Status"
-            android:textSize="24sp" />
-    -->
 
 
 </RelativeLayout>

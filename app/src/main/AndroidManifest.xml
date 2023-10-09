@@ -28,6 +28,8 @@
                 android:value="" />
         </activity>
         <activity android:name=".LoggedActivity" />
+        <activity android:name=".RegisterActivity" />
+        <activity android:name=".LoginActivity" />
 
     </application>
 

@@ -11,4 +11,8 @@
 
     <color name="my_primary">#5E35B1</color>
     <color name="my_secondary">#673AB7</color>
+    <color name="my_primary_dark">#512DA8</color>
+    <color name="my_primary_light">#D1C4E9</color>
+    <color name="my_secondary_dark">#512DA8</color>
+    <color name="my_secondary_light">#D1C4E9</color>
 </resources>
