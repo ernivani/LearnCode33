@@ -7,21 +7,16 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import fr.ernicani.learncode33.databinding.ActivityLoggedBinding
-import okhttp3.Call
-import okhttp3.Callback
+import okhttp3.*
 import okhttp3.MediaType.Companion.toMediaType
-import okhttp3.OkHttpClient
-import okhttp3.Request
 import okhttp3.RequestBody.Companion.toRequestBody
-import okhttp3.Response
 import org.json.JSONObject
 import java.io.IOException
 
 class LoggedActivity : AppCompatActivity() {
 
-    private lateinit var sharedPreferences: SharedPreferences
+    lateinit var sharedPreferences: SharedPreferences  // Make this public or add a public getter
     private val client = OkHttpClient()
-
     private lateinit var binding: ActivityLoggedBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,17 +29,14 @@ class LoggedActivity : AppCompatActivity() {
             when (it.itemId) {
                 R.id.home -> replaceFragment(LoggedHome())
                 R.id.profile -> replaceFragment(LoggedProfile())
-                R.id.settings -> replaceFragment(LoggedSettings())
+                R.id.notifications -> replaceFragment(LoggedNotifications())
                 else -> {
                 }
             }
-
             true
         }
 
-
         sharedPreferences = getSharedPreferences("user_session", MODE_PRIVATE)
-
         val token = sharedPreferences.getString("token", null)
 
         if (token != null) {
@@ -52,20 +44,16 @@ class LoggedActivity : AppCompatActivity() {
         } else {
             logout()
         }
-
-
     }
 
     private fun logout() {
-        val sharedPreferences = getSharedPreferences("user_session", Context.MODE_PRIVATE)
         with(sharedPreferences.edit()) {
             putBoolean("isLogged", false)
             putString("token", null)
             apply()
         }
-
         val intent = Intent(this@LoggedActivity, MainActivity::class.java)
-        intent.putExtra("logged_out", true)  // Add this line
+        intent.putExtra("logged_out", true)
         startActivity(intent)
         finish()
     }
@@ -86,8 +74,6 @@ class LoggedActivity : AppCompatActivity() {
             .build()
 
         client.newCall(request).enqueue(getCallbackForApiResponse())
-
-
     }
 
     private fun getCallbackForApiResponse(): Callback {
@@ -116,4 +102,5 @@ class LoggedActivity : AppCompatActivity() {
         fragmentTransaction.replace(R.id.frame_layout, fragment)
         fragmentTransaction.commit()
     }
+
 }

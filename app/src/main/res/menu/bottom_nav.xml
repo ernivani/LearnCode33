@@ -6,7 +6,7 @@
     <item android:title="Profile"
         android:id="@+id/profile"
         android:icon="@drawable/username_icon"/>
-    <item android:title="Settings"
-        android:id="@+id/settings"
-        android:icon="@drawable/settings_icon"/>
+    <item android:title="Notifications"
+        android:id="@+id/notifications"
+        android:icon="@drawable/notification_icon"/>
 </menu>
