@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">LearnCode</string>
     <string name="logout">Logout</string>
@@ -20,6 +21,4 @@
     <string name="network_error">Network error, please try again</string>
     <string name="login_invalid_credentials">Login failed, please check your credentials</string>
     <string name="register_invalid_credentials">Register failed, please check your credentials</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

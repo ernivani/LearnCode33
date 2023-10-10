@@ -27,9 +27,15 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-        <activity android:name=".LoggedActivity" />
+
+<!--        registration/login activity -->
+
         <activity android:name=".RegisterActivity" />
         <activity android:name=".LoginActivity" />
+
+<!--        logged in activity -->
+
+        <activity android:name=".LoggedActivity" />
 
     </application>
 

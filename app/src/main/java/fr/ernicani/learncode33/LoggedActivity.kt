@@ -4,10 +4,9 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.widget.Button
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.material.snackbar.Snackbar
+import androidx.fragment.app.Fragment
+import fr.ernicani.learncode33.databinding.ActivityLoggedBinding
 import okhttp3.Call
 import okhttp3.Callback
 import okhttp3.MediaType.Companion.toMediaType
@@ -20,21 +19,33 @@ import java.io.IOException
 
 class LoggedActivity : AppCompatActivity() {
 
-    private lateinit var logoutButton: Button
-    private lateinit var infoTextView: TextView
-
     private lateinit var sharedPreferences: SharedPreferences
     private val client = OkHttpClient()
 
+    private lateinit var binding: ActivityLoggedBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_logged)
+        binding = ActivityLoggedBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        replaceFragment(LoggedHome())
+
+        binding.bottomNavigation.setOnItemSelectedListener {
+            when (it.itemId) {
+                R.id.home -> replaceFragment(LoggedHome())
+                R.id.profile -> replaceFragment(LoggedProfile())
+                R.id.settings -> replaceFragment(LoggedSettings())
+                else -> {
+                }
+            }
+
+            true
+        }
 
 
         sharedPreferences = getSharedPreferences("user_session", MODE_PRIVATE)
 
         val token = sharedPreferences.getString("token", null)
-        val isLogged = sharedPreferences.getBoolean("isLogged", false)
 
         if (token != null) {
             checkSession(token)
@@ -43,12 +54,6 @@ class LoggedActivity : AppCompatActivity() {
         }
 
 
-        infoTextView = findViewById(R.id.infoTextView)
-        infoTextView.text = "Token: $token\nisLogged: $isLogged"
-
-
-        logoutButton = findViewById(R.id.logoutButton)
-        logoutButton.setOnClickListener { logout() }
     }
 
     private fun logout() {
@@ -64,7 +69,6 @@ class LoggedActivity : AppCompatActivity() {
         startActivity(intent)
         finish()
     }
-
 
 
     private fun checkSession(token: String) {
@@ -104,5 +108,12 @@ class LoggedActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    private fun replaceFragment(fragment: Fragment) {
+        val fragmentManager = supportFragmentManager
+        val fragmentTransaction = fragmentManager.beginTransaction()
+        fragmentTransaction.replace(R.id.frame_layout, fragment)
+        fragmentTransaction.commit()
     }
 }

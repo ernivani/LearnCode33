@@ -27,7 +27,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="IMPIN"
+            android:text="@string/app_name"
             android:textStyle="bold"
             android:textSize="32sp"
             android:textColor="@color/white"
@@ -56,7 +56,7 @@
                android:layout_height="60dp"
                android:backgroundTint="@color/my_primary"
                android:textColor="@color/white"
-               android:text="Let's Go !"
+               android:text="@string/let_s_go"
                app:cornerRadius="32dp" />
 
            <View
@@ -68,7 +68,7 @@
                android:layout_width="match_parent"
                android:layout_height="60dp"
                android:backgroundTint="@color/my_primary"
-               android:text="I don't have an account"
+               android:text="@string/i_don_t_have_an_account"
                android:textColor="@color/white"
                app:cornerRadius="32dp" />
 

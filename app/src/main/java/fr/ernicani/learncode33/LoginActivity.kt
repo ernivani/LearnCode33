@@ -5,7 +5,6 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
 import okhttp3.*
@@ -53,7 +52,7 @@ class LoginActivity : AppCompatActivity() {
         } else {
             Snackbar.make(
                 findViewById(android.R.id.content),
-                "Email or Password cannot be empty",
+                getString(R.string.login_empty_field),
                 Snackbar.LENGTH_SHORT
             ).show()
         }
@@ -78,7 +77,7 @@ class LoginActivity : AppCompatActivity() {
                 runOnUiThread {
                     Snackbar.make(
                         findViewById(android.R.id.content),
-                        "Network error, please try again",
+                        getString(R.string.network_error),
                         Snackbar.LENGTH_SHORT
                     ).show()
                 }
@@ -98,7 +97,7 @@ class LoginActivity : AppCompatActivity() {
                     } else {
                         Snackbar.make(
                             findViewById(android.R.id.content),
-                            "Login failed, please check your credentials",
+                            getString(R.string.login_invalid_credentials),
                             Snackbar.LENGTH_SHORT
                         ).show()
                     }

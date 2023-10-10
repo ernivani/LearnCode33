@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">LearnCode</string>
+    <string name="logout">Déconnexion</string>
+    <string name="let_s_go">Allons-y !</string>
+    <string name="i_don_t_have_an_account">Je n\'ai pas de compte</string>
+    <string name="login">Connexion</string>
+    <string name="email_or_username">Email ou nom d\'utilisateur</string>
+    <string name="please_login_with_your_information">Veuillez vous connecter avec vos informations</string>
+    <string name="password">Mot de passe</string>
+    <string name="remember_me">Se souvenir de moi</string>
+    <string name="i_forgot_my_password">Mot de passe oublié</string>
+    <string name="welcome_back">Bienvenue</string>
+    <string name="register">Inscription</string>
+    <string name="welcome">Bienvenue</string>
+    <string name="register_to_continue">Inscrivez-vous pour continuer</string>
+    <string name="username">Nom d\'utilisateur</string>
+    <string name="email_address">Adresse email</string>
+    <string name="login_empty_field">Email ou mot de passe ne peut pas être vide</string>
+    <string name="register_empty_field">Tous les champs sont obligatoires</string>
+    <string name="network_error">Erreur réseau, veuillez réessayer</string>
+    <string name="login_invalid_credentials">Échec de la connexion, veuillez vérifier vos informations d\'identification</string>
+    <string name="register_invalid_credentials">Échec de l\'inscription, veuillez vérifier vos informations d\'identification</string>
+</resources>

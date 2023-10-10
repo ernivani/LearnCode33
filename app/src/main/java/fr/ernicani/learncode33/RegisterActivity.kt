@@ -56,7 +56,7 @@ class RegisterActivity: AppCompatActivity() {
         } else {
             Snackbar.make(
                 findViewById(android.R.id.content),
-                "Email, Username or Password cannot be empty",
+                getString(R.string.register_empty_field),
                 Snackbar.LENGTH_SHORT
             ).show()
         }
@@ -82,7 +82,7 @@ class RegisterActivity: AppCompatActivity() {
                 runOnUiThread {
                     Snackbar.make(
                         findViewById(android.R.id.content),
-                        "Network error, please try again",
+                        getString(R.string.network_error),
                         Snackbar.LENGTH_SHORT
                     ).show()
                 }
@@ -102,7 +102,7 @@ class RegisterActivity: AppCompatActivity() {
                     } else {
                         Snackbar.make(
                             findViewById(android.R.id.content),
-                            "Register failed, please check your credentials",
+                            getString(R.string.register_invalid_credentials),
                             Snackbar.LENGTH_SHORT
                         ).show()
                     }

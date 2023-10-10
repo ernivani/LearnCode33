@@ -27,7 +27,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Login"
+            android:text="@string/login"
             android:textStyle="bold"
             android:textSize="32sp"
             android:textColor="@color/white"
@@ -53,14 +53,15 @@
            <TextView
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
-               android:text="Welcome back"
+               android:text="@string/welcome_back"
                android:textColor="@color/my_primary"
                android:textSize="32sp"
-               android:textStyle="bold"/>
+               android:textStyle="bold" />
+
            <TextView
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
-               android:text="Please login with your information"
+               android:text="@string/please_login_with_your_information"
                android:alpha="0.7"/>
            
            <View
@@ -70,7 +71,7 @@
            <TextView
                android:layout_width='wrap_content'
                android:layout_height="wrap_content"
-               android:text="Email or Username"
+               android:text="@string/email_or_username"
                android:alpha='0.7'
                android:textStyle="bold"/>
 
@@ -88,7 +89,7 @@
            <TextView
                android:layout_width='wrap_content'
                android:layout_height="wrap_content"
-               android:text="Password"
+               android:text="@string/password"
                android:alpha='0.7'
                android:textStyle="bold"/>
 
@@ -108,7 +109,7 @@
                 <CheckBox
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Remember me"
+                    android:text="@string/remember_me"
                     android:id="@+id/showPasswordCheckbox"
                     android:layout_centerVertical="true"
                     android:alpha="0.7"/>
@@ -116,7 +117,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="i forgot my password"
+                    android:text="@string/i_forgot_my_password"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"/>
             </RelativeLayout>
@@ -130,7 +131,7 @@
                android:layout_width="match_parent"
                android:layout_height="60dp"
                android:backgroundTint="@color/my_primary"
-               android:text="Login"
+               android:text="@string/login"
                android:textColor="@color/white"
                app:cornerRadius="32dp" />
 
