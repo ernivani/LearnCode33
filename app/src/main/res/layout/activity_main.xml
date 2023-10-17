@@ -12,7 +12,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/my_primary"
+        android:background="@color/variety_color1"
         android:alpha="0.7"
         />
 
@@ -30,7 +30,7 @@
             android:text="@string/app_name"
             android:textStyle="bold"
             android:textSize="32sp"
-            android:textColor="@color/white"
+            android:textColor="@color/text_color"
             android:fontFamily="sans-serif-medium"/>
 
     </LinearLayout>
@@ -54,8 +54,8 @@
                android:id="@+id/LoginRedirect"
                android:layout_width="match_parent"
                android:layout_height="60dp"
-               android:backgroundTint="@color/my_primary"
-               android:textColor="@color/white"
+               android:backgroundTint="@color/variety_color1"
+               android:textColor="@color/text_color"
                android:text="@string/let_s_go"
                app:cornerRadius="32dp" />
 
@@ -67,9 +67,9 @@
                android:id="@+id/RegisterRedirect"
                android:layout_width="match_parent"
                android:layout_height="60dp"
-               android:backgroundTint="@color/my_primary"
+               android:backgroundTint="@color/variety_color1"
                android:text="@string/i_don_t_have_an_account"
-               android:textColor="@color/white"
+               android:textColor="@color/text_color"
                app:cornerRadius="32dp" />
 
        </LinearLayout>

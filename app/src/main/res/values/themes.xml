@@ -2,15 +2,15 @@
     <!-- Base application theme. -->
     <style name="Theme.LearnCode33" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/my_primary_light</item>
-        <item name="colorPrimaryVariant">@color/my_primary_light</item>
-        <item name="colorOnPrimary">@color/white</item>
+<!--        <item name="colorPrimary">@color/variety_color4</item>-->
+        <item name="colorPrimaryVariant">@color/variety_color4</item>
+        <item name="colorOnPrimary">@color/text_color</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/my_secondary_light</item>
-        <item name="colorSecondaryVariant">@color/my_secondary_light</item>
+        <item name="colorSecondary">@color/variety_color4</item>
+        <item name="colorSecondaryVariant">@color/variety_color4</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor">@color/my_primary_light</item>
+        <item name="android:statusBarColor">@color/variety_color4</item>
         <!-- Customize your theme here. -->
     </style>
 

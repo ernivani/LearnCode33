@@ -30,29 +30,29 @@
             android:layout_alignParentEnd="true"
             android:orientation="horizontal">
 
-            <ImageView
-                android:id="@+id/topBarIcon2"
-                android:layout_width="21dp"
-                android:layout_height="21dp"
-                android:gravity="center"
-                android:src="@drawable/hearth_icon" />
+        <ImageView
+            android:id="@+id/topBarIcon2"
+            android:layout_width="21dp"
+            android:layout_height="21dp"
+            android:gravity="center"
+            android:src="@drawable/hearth_icon" />
 
-            <TextView
-                android:layout_width="21dp"
-                android:layout_height="21dp"
-                android:textSize="18sp"
-                android:gravity="center"
-                android:layout_marginTop="-2dp"
-                android:textColor="#FFFFFF"
-                android:textStyle="bold"
-                android:text="5" />
+        <TextView
+            android:layout_width="21dp"
+            android:layout_height="21dp"
+            android:textSize="18sp"
+            android:gravity="center"
+            android:layout_marginTop="-2dp"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:text="5" />
         </LinearLayout>
 
 
 
     </RelativeLayout>
 
-    <!--    lesson top bar -->
+<!--    lesson top bar -->
 
 
     <RelativeLayout
@@ -88,7 +88,7 @@
         android:layout_above="@+id/bottomNav"
         android:orientation="vertical"
         android:background="#141f23"
-        >
+       >
 
         <!--    margin line -->
         <View
@@ -127,7 +127,8 @@
         android:layout_above="@id/bottomNav"
         android:background="#39464e"/>
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
+    <!-- Bottom navigation bar -->
+    <LinearLayout
         android:id="@+id/bottomNav"
         android:layout_width="match_parent"
         android:layout_height="56dp"
@@ -135,12 +136,44 @@
         android:background="#141f23"
         android:gravity="center"
         android:orientation="horizontal"
-        android:weightSum="5"
-        app:menu="@menu/bottom_nav">
+        android:weightSum="5">
 
+        <ImageView
+            android:id="@+id/navIcon1"
+            android:layout_width="0dp"
+            android:layout_height="24dp"
+            android:layout_weight="1"
+            android:src="@drawable/icon_placeholder" />
 
-    </com.google.android.material.bottomnavigation.BottomNavigationView>
+        <ImageView
+            android:id="@+id/navIcon2"
+            android:layout_width="0dp"
+            android:layout_height="24dp"
+            android:layout_weight="1"
+            android:src="@drawable/icon_placeholder" />
 
+        <ImageView
+            android:id="@+id/navIcon3"
+            android:layout_width="0dp"
+            android:layout_height="24dp"
+            android:layout_weight="1"
+            android:src="@drawable/icon_placeholder" />
+
+        <ImageView
+            android:id="@+id/navIcon4"
+            android:layout_width="0dp"
+            android:layout_height="24dp"
+            android:layout_weight="1"
+            android:src="@drawable/icon_placeholder" />
+
+        <ImageView
+            android:id="@+id/navIcon5"
+            android:layout_width="0dp"
+            android:layout_height="24dp"
+            android:layout_weight="1"
+            android:src="@drawable/icon_placeholder" />
+
+    </LinearLayout>
 
 
 </RelativeLayout>

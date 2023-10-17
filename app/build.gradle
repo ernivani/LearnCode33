@@ -7,6 +7,10 @@ android {
     namespace 'fr.ernicani.learncode33'
     compileSdk 33
 
+    viewBinding {
+        enabled = true
+    }
+
     defaultConfig {
         applicationId "fr.ernicani.learncode33"
         minSdk 33

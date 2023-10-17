@@ -12,7 +12,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/my_primary"
+        android:background="@color/variety_color1"
         android:alpha="0.7"
         />
 
@@ -30,7 +30,7 @@
             android:text="@string/login"
             android:textStyle="bold"
             android:textSize="32sp"
-            android:textColor="@color/white"
+            android:textColor="@color/variety_color4"
             android:fontFamily="sans-serif-medium"/>
 
     </LinearLayout>
@@ -54,7 +54,7 @@
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
                android:text="@string/welcome_back"
-               android:textColor="@color/my_primary"
+               android:textColor="@color/variety_color1"
                android:textSize="32sp"
                android:textStyle="bold" />
 
@@ -80,6 +80,7 @@
                android:layout_width="match_parent"
                android:layout_height="wrap_content"
                android:inputType="textEmailAddress"
+
                android:drawableEnd="@drawable/done_icon"/>
 
            <View
@@ -130,10 +131,11 @@
                android:id="@+id/loginButton"
                android:layout_width="match_parent"
                android:layout_height="60dp"
-               android:backgroundTint="@color/my_primary"
+               android:backgroundTint="@color/variety_color1"
                android:text="@string/login"
-               android:textColor="@color/white"
+               android:textColor="@color/text_color"
                app:cornerRadius="32dp" />
+
 
        </LinearLayout>
 
